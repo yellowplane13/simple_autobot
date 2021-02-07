@@ -6,8 +6,8 @@ import pickle
 import time
 
 DISCONNECT_MESSAGE = "!DISCONNECT"
-PORT = 5050
-SERVER = socket.gethostbyname("localhost")
+PORT = 9999
+SERVER = "0.0.0.0"
 ADDR = (SERVER,PORT)
 
 VALID_STATUS_CODE1 = 200
@@ -54,7 +54,7 @@ def handle_client(c, addr):
             try:
                 c.send(pickle.dumps(output))
                 time.sleep(1)
-                c.send(pickle.dumps("Msg Received"))
+                c.send(pickle.dumps("All done"))
             except socket.error as e:
                 print(e)
 
@@ -68,9 +68,12 @@ def start():
     print(f"[LISTENING] Server is listening on {SERVER}")
     while True:
         c, addr = socketServer.accept() # when it finds a connection, it stores the client under conn and port number under addr
+        #handle_client(c,addr)
         thread = threading.Thread(target=handle_client, args=(c,addr))
         thread.start()
         print(F"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
  
-print("[STARTING] server is starting ... ")
-start()
+# Call the main function here
+if __name__ == "__main__":
+    print("[STARTING] server is starting ... ")
+    start()

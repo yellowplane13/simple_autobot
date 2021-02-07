@@ -4,10 +4,10 @@ import pickle
 import re
 import time
 
-HEADER = 1024
+HEADER = 2048
 DISCONNECT_MESSAGE = "!DISCONNECT"
-PORT = 5050
-SERVER = socket.gethostbyname("localhost")
+PORT = 9999
+SERVER = "0.0.0.0"
 ADDR = (SERVER,PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,7 +17,8 @@ client.connect(ADDR)
 def sendAndReceiveReposToServer(msg):
     message = pickle.dumps(msg)
     client.send(message)
-    time.sleep(1)
+    #time.sleep(1)
+    print("Number of stars for given repositories")
     print(pickle.loads(client.recv(2048)))
 
 #TODO : ADD A VALIDATION REGEX STEP HERE
@@ -33,7 +34,7 @@ def main():
     # Enter elements separated by comma
     repositoriesInput = list(map(str,input("Enter the values in org/repo format : ").strip().split(',')))[:n]
     print("The entered list is: \n",repositoriesInput)
-    
+
     # Send the data to server
     sendAndReceiveReposToServer(repositoriesInput)
     sendAndReceiveReposToServer(DISCONNECT_MESSAGE)
