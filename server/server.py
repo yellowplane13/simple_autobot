@@ -5,6 +5,8 @@ import json
 import pickle
 import time
 
+from service import TalkToAPI
+
 DISCONNECT_MESSAGE = "!DISCONNECT"
 PORT = 9999
 SERVER = "0.0.0.0"
@@ -20,22 +22,6 @@ socketServer = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 # bind the socket to the address in ADDR which need s to be in a tuple
 socketServer.bind(ADDR)
 
-def talkToAPI(msg):
-    repos = msg
-    stars = {}
-
-    for repo in repos:
-        url = git_url + repo
-        r = requests.get(url)
-        if VALID_STATUS_CODE1 <= r.status_code <= VALID_STATUS_CODE2:
-            repo_data = r.json()
-            if repo not in stars:
-                stars[repo] = repo_data['watchers']
-        else:
-            print(f"[ERROR] {repo} not a valid GitHub Repository")
-            print(f"[ERROR] get status {r.status_code} received")
-    return stars
-
 def handle_client(c, addr):
     print(f"[NEW CONNECTION] {addr} connected")
     connected = True
@@ -47,7 +33,7 @@ def handle_client(c, addr):
                 connected = False
             else:
                 # send the converted list to the get API method
-                output = talkToAPI(msg)
+                output = TalkToAPI(msg)
             print(f"[{addr}] {msg}")
 
             # send message to client
