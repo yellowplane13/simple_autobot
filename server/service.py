@@ -4,7 +4,7 @@ GIT_REPO_URL = "https://api.github.com/repos/"
 VALID_STATUS_CODE1 = 200
 VALID_STATUS_CODE2 = 299
 
-def TalkToAPI(msg):
+def talkToAPI(msg):
     repos = msg
     stars = {}
 
