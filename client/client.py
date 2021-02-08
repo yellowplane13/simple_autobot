@@ -24,14 +24,9 @@ def sendAndReceiveReposToServer(msg, server):
     server.send(message)
     time.sleep(1)
     response = pickle.loads(server.recv(2048))
-    if len(response) > 1:
-        for res in response:
-            print(res)
-    else:
-        print("[RESULT]",response)
-
-#TODO : ADD A VALIDATION REGEX STEP HERE
-
+    print(response)
+    print("*****stars received from server****")
+    print("[RESULT]",response)
 def main():
     # create the socket
     server = createSocket()
@@ -43,7 +38,7 @@ def main():
     n = int(input("Enter the number of repositories : "))
     # Enter elements separated by comma
     repositoriesInput = list(map(str,input("Enter the values in org/repo format : ").strip().split(',')))[:n]
-    print("The entered list is: \n",repositoriesInput)
+    #print("The entered list is: \n",repositoriesInput)
     
     # Send the data to server
     sendAndReceiveReposToServer(repositoriesInput, server)
