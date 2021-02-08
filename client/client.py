@@ -23,12 +23,14 @@ def sendAndReceiveReposToServer(msg, server):
     message = pickle.dumps(msg)
     server.send(message)
     time.sleep(1)
-    print(pickle.loads(server.recv(2048)))
+    response = pickle.loads(server.recv(2048))
+    if len(response) > 1:
+        for res in response:
+            print(res)
+    else:
+        print("[RESULT]",response)
 
 #TODO : ADD A VALIDATION REGEX STEP HERE
-def validateInput(repositoriesInput):
-    # check if the org/repo format exists
-    pass
 
 def main():
     # create the socket

@@ -7,6 +7,7 @@ VALID_STATUS_CODE2 = 299
 def talkToAPI(msg):
     repos = msg
     stars = {}
+    error_code = []
 
     for repo in repos:
         url = GIT_REPO_URL + repo
@@ -15,7 +16,8 @@ def talkToAPI(msg):
             repo_data = r.json()
             if repo not in stars:
                 stars[repo] = repo_data['watchers']
+                error_code.append(f"[SUCCESS] {repo} is a valid Repository")
         else:
-            print(f"[ERROR] {repo} not a valid GitHub Repository")
-            print(f"[ERROR] get status {r.status_code} received")
-    return stars
+            error_code.append(f"[ERROR] {repo} not a valid GitHub Repository")
+            print(f"[ERROR] get status {r.status_code} received for {repo}")
+    return stars,error_code

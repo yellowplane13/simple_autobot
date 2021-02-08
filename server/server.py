@@ -30,11 +30,12 @@ def readFromClient(c, addr):
     msg = pickle.loads(pickledMsg)
     return msg
 
-def sendResponseToClient(c,listOfRepos):
+def sendResponseToClient(c,listOfRepos,error_code):
     try:
-        c.send(pickle.dumps(listOfRepos))
+        c.send(pickle.dumps(error_code))
         time.sleep(1)
-        c.send(pickle.dumps("Msg Received"))
+        c.send(pickle.dumps(listOfRepos))
+        
     except socket.error as e:
         print(e)
 
@@ -48,11 +49,11 @@ def handle_client(c, addr):
                 connected = False
             else:
                 # send the converted list to the get API method
-                listOfRepos = talkToAPI(msg)
+                stars,error_code = talkToAPI(msg)
             print(f"[{addr}] {msg}")
 
             # send message to client
-            sendResponseToClient(c,listOfRepos)
+            sendResponseToClient(c,stars,error_code)
 
     except KeyboardInterrupt:
         print("caught keyboard interrupt, exiting")
