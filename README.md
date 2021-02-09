@@ -28,10 +28,10 @@ Step3 : In order to run the client, the following steps need to be followed :
 
         - A dictionary that contains the "org/repo" as the key and number of stars for that particular repo is obtained
         - Example : Enter the number of repositories : 1
-                    Enter the values in org/repo format : tw/tw
-                    The entered list is:
-                        ['tw/tw']
-                        {'tw/tw': 2}                        
+                    Enter the values in org/repo format : twilio/twilio-php,gibberish_repo
+                    *****stars received from server****
+                    [RESULT] {'twilio/twilio-php': 1253}
+                    ['[SUCCESS] twilio/twilio-php is a valid Repository', '[ERROR] gibberish_repo not a valid GitHub Repository']                      
 
 Step4 : In order to run the unit tests :
         - cd to the server directory in the terminal
