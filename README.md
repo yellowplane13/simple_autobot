@@ -37,3 +37,7 @@ Step4 : In order to run the unit tests :
         - cd to the server directory in the terminal
         - run "pytest -s"
         - This particular test is testing the business logic (which is the API call to github)
+
+NOTE: Everytime a push is done, an image of the repository is automatically uploaded to Docker hub. 
+It can be accessed from here:
+https://hub.docker.com/repository/docker/yellowplane/simple_autobot
