@@ -32,10 +32,11 @@ def readFromClient(c, addr):
 
 def sendResponseToClient(c,stars,error_code):
     try:
-        print("*****stars before sending to client***")
-        print(stars)
-        c.send(pickle.dumps(error_code))
+        print(error_code)
         c.send(pickle.dumps(stars))
+        print("now try sending the error codes")
+        time.sleep(2)
+        c.send(pickle.dumps(error_code))
         
     except socket.error as e:
         print(e)
@@ -51,7 +52,7 @@ def handle_client(c, addr):
             else:
                 # send the converted list to the get API method
                 stars,error_code = talkToAPI(msg)
-                print(stars,"received the stars in server from api")
+                print(stars,"received the stars from api")
             print(f"[{addr}] {stars}")
 
             # send message to client

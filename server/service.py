@@ -10,7 +10,6 @@ def callAPI(url):
     print("inside call")
     try:
         r = requests.get(url)
-        print(r,"r")
     except requests.exceptions.Timeout:
         r = BAD_RESPONSE
     except requests.exceptions.TooManyRedirects:
@@ -26,8 +25,6 @@ def talkToAPI(msg):
     for repo in repos:
         url = GIT_REPO_URL + repo
         r = callAPI(url)
-        print(r,"r2")
-        print(r.status_code)
         if VALID_STATUS_CODE1 <= r.status_code <= VALID_STATUS_CODE2:
             repo_data = r.json()
             if repo not in stars:
@@ -38,5 +35,4 @@ def talkToAPI(msg):
         else:
             error_code.append(f"[ERROR] {repo} not a valid GitHub Repository")
             print(f"[ERROR] get status {r.status_code} received for {repo}")
-    print(stars,"stars dictionary")
     return stars,error_code
