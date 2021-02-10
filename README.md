@@ -41,3 +41,20 @@ Step4 : In order to run the unit tests :
 NOTE: Everytime a push is done, an image of the repository is automatically uploaded to Docker hub. 
 It can be accessed from here:
 https://hub.docker.com/repository/docker/yellowplane/simple_autobot
+
+
+Things I would do differently
+If I had to do this all over again, I would take a TDD approach and write my tests first
+To reduce api calls
+- Add a regex validation step in client.py to stop making so many API calls
+- Group the input by org -> make one call and store all data in a a string and then parse for different repos in the same org. 
+- Keep some sort of a cache, maybe LRU based to store frequently accessed repos
+Changes to Client
+- Modularize my client better
+- Add classes to both client and server
+Changes to Server
+- Add maximum amount of threads that can be spawned at an instance
+To scale
+- I would put up my server or two depending on my current incoming traffic on AWS or a cloud provider
+- And add a load balancer in case I need to spawn off a lot of servers
+- Add a LRU cache to store frequently queried repos and organizations
